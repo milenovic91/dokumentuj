@@ -1,0 +1,59 @@
+- command substitution (TODO)
+
+- ****linux folder structure:****
+  / - root directory
+  /root - home directory of root user (not the same as previous)
+  /home - contains home folder for each user
+  /bin - essentials binaries
+  /sbin - system administration binaries
+  /usr - directory contains applications and files used by users, as opposed to applications and files used by the system
+    /usr/bin
+    /usr/sbin
+    /usr/lib
+  /tmp – Temporary Files
+  /lib – Essential Shared Libraries
+  /mnt - temporary mount points. Historically, this is where system administrators mounted temporary file systems while using them
+  
+  /dev - DEVICE FILES - Linux exposes devices as files, and the /dev directory contains a number of special files that represent devices.
+         These are not actual files as we know them, but they appear as files – for example, /dev/sda represents the first SATA drive in the system
+         For example, /dev/random produces random numbers.
+  /var - Variable Data Files (e.g. logs)
+  /etc – Configuration Files
+  /srv – Service Data - contains “data for services provided by the system.” If you were using the Apache HTTP server to serve a website, you’d
+         likely store your website’s files in a directory inside the /srv directory.
+
+- ****Linux commands:****
+  - chmod: changes permissions for file/directory
+           ls -l:
+           total 0
+           -rwxrwxrwx 1 komarica komarica 17 May  2 14:34 runme.sh (user (owner) - u, group - g, others - o, all - a (default), respective order)
+           chmod u-w,go=r runme.sh // remove run permission for owner, groups and others can only read
+           chmod 400 runme.sh // rwx are represented with three bits 100(4) - only read permission (NOTE - this won't work for windows files,
+           if you want to test it with wsl, to go linux home folder or something)
+  - find: find files
+          e.g. find . -type f -name *ones* (start from current dir, and search for files that have *ones* in their names)
+  - grep: searches for lines which contain a search pattern.
+          .e.g. grep train *.txt (searching for the word “train” in all text files in the current directory.)
+  - head: gives you a listing of top n (default 10) lines of file.
+          e.g. head -n 5 core.c
+  - tail: gives you a listing of last n lines.
+  - less: allows you to view files without opening an editor. (NOTE: Press the Q key to quit from less.)
+  - mkdir: make dir (e.g. mkdir -p quotes/yearly/2019)
+  - mv: move (e.g. mv ~/Documents/Ukulele/Apache.pdf .  - move to current directory)
+  - ps: list running processes. By default, it only shows processes in the current shell.
+        e.g. ps -u dave | less
+  - nslookup - this command queries Internet name servers interactively for information.
+  - nohup - leave command to run (no hang up)
+
+- ****AWS:****
+  - tar - make tarball (unlike zip it's preinstalled)
+      tar -czvf test.tar.gz .  (current folder to tarball) (c - create, z- compress with gzip, v- progress, -f file output)
+  - ssh:
+    ssh -i /path/name.pem ec2-user@3.134.247.158
+  - scp - copy files to instance:
+      scp -i ~/kimiubica.pem test.tar.gz  ec2-user@3.134.247.158:~ (destination folder is ~)
+
+- ****AWS NOTES:****
+  - set port and run nodejs script:
+    PORT=80 node ./dist/server.js (PORT=80 && node ... not working)
+  - port 80 is denied: Need to switch to root user (ec2-user not working)
